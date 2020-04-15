@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  typeorm_graphql:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: Mdp@2020
+      MYSQL_DATABASE: typeOrmGql
+    ports:
+      - '3306:3306'
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 82:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mariadb
+    depends_on:
+      - typeorm_graphql
+
+volumes:
+  mysql-data:
